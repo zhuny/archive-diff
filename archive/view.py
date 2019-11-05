@@ -23,8 +23,8 @@ def detail(page_id):
     )
 
 
-@bp.route('/<int:archive_id>/<int:rev1_id>/<int:rev2_id>')
-def diff_rev(archive_id, rev1_id, rev2_id):
+@bp.route('/<int:page_id>/<int:rev1_id>/<int:rev2_id>')
+def diff_rev(page_id, rev1_id, rev2_id):
     pass
 
 
