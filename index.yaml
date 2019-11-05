@@ -1,0 +1,5 @@
+indexes:
+  - kind: Work
+    properties:
+      - name: key
+      - name: created_at

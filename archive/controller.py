@@ -25,4 +25,15 @@ class PageController:
             )
         )
 
+    @classmethod
+    def get_last_rev(cls, page_id):
+        query = current_app.datastore.query(
+            namespace="Archive",
+            kind="Work",
+            filters=[('key', '=', page_id)],
+            order=['created_at']
+        ).fetch(1)
+        for row in query:
+            return row
+
 
