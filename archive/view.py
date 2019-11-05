@@ -15,7 +15,10 @@ def index():
 
 @bp.route('/<int:page_id>')
 def detail(page_id):
-    pass
+    return render_template(
+        "detail.html",
+        page=PageController.get_by_id(page_id)
+    )
 
 
 @bp.route('/<int:archive_id>/<int:rev1_id>/<int:rev2_id>')
