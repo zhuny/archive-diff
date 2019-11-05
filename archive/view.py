@@ -1,15 +1,20 @@
-from flask import Blueprint, Flask
+from flask import Blueprint, Flask, render_template
+
+from archive.controller import PageController
 
 bp = Blueprint('archive', __name__)
 
 
 @bp.route('/')
 def index():
-    pass
+    return render_template(
+        "index.html",
+        page_list=PageController.get_list()
+    )
 
 
-@bp.route('/<int:archive_id>')
-def detail(archive_id):
+@bp.route('/<int:page_id>')
+def detail(page_id):
     pass
 
 

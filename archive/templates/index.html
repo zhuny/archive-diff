@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for page in page_list %}
+<a href="{{ url_for('archive.detail', page_id=page.id) }}" class="block p-2 bg-gray-700 mt-4 rounded-lg">
+    <h2 class="text-lg font-bold">{{ page.description }}</h2>
+    <h4 class="text-xs text-gray-500">{{ page.url }}</h4>
+</a>
+{% endfor %}
+{% endblock %}
