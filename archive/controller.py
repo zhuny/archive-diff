@@ -1,7 +1,6 @@
 from operator import attrgetter
 
 from flask import current_app
-from google.cloud.datastore import Key
 
 
 class PageController:
