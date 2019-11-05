@@ -3,4 +3,7 @@
 {% block content %}
 <h2 class="text-lg font-bold">{{ page.description }}</h2>
 <h4 class="text-xs text-gray-500">{{ page.url }}</h4>
+<div class="mt-4 shadow overflow-x-auto bg-gray-500 rounded-lg p-1">
+    <pre class="text-sm">{{ last_rev.text }}</pre>
+</div>
 {% endblock %}
