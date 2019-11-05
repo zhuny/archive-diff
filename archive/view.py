@@ -17,7 +17,8 @@ def index():
 def detail(page_id):
     return render_template(
         "detail.html",
-        page=PageController.get_by_id(page_id)
+        page=PageController.get_by_id(page_id),
+        last_rev=PageController.get_last_rev(page_id)
     )
 
 
