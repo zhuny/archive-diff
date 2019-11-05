@@ -18,7 +18,8 @@ def detail(page_id):
     return render_template(
         "detail.html",
         page=PageController.get_by_id(page_id),
-        last_rev=PageController.get_last_rev(page_id)
+        last_rev=PageController.get_last_rev(page_id),
+        rev_list=PageController.get_rev_list(page_id)
     )
 
 
