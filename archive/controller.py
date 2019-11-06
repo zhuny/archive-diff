@@ -53,4 +53,13 @@ class PageController:
             row['created_at'] = datetime.datetime.fromtimestamp(row['created_at']/1000000)
         return result
 
+    @classmethod
+    def get_rev(cls, rev_id):
+        return current_app.datastore.get(
+            key=current_app.datastore.key(
+                "WorkResult", rev_id,
+                namespace="Archive"
+            )
+        )
+
 
