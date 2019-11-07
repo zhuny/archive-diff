@@ -35,6 +35,16 @@ class DeltaInfo:
             if c == self.state or c == '^':
                 self._append_pos(i)
 
+    def get_line_split(self):
+        scan = 2
+        for start, end in self.delta_pos:
+            if scan < start:
+                yield DeltaMark.CHANGE_NO, self.line[scan:start]
+            yield self.state, self.line[start:end]
+            scan = end
+        if scan < len(self.line):
+            yield DeltaMark.CHANGE_NO, self.line[scan:]
+
 
 def calculate_diff(before: str, after: str) -> List[DeltaInfo]:
     before = before.splitlines()

@@ -8,6 +8,14 @@
     {%- endif -%}
 {%- endmacro %}
 
+{% macro line_strong_class(state) -%}
+{%- if state == Mark.CHANGE_BEFORE -%}
+bg-red-500
+{%- elif state == Mark.CHANGE_AFTER -%}
+bg-green-500
+{%- endif -%}
+{%- endmacro %}
+
 {% macro line_box_class(state) -%}
     {%- if state == Mark.CHANGE_BEFORE -%}
         bg-red-400
@@ -29,7 +37,15 @@
 <div class="mt-4 shadow bg-gray-500 rounded-lg py-1">
     {% for block in diff_blocks %}
     <div class="{{ line_class(block.state) }} pl-6 pr-1 relative">
-        <code class="break-all">{{ block.body }}</code>
+        <code class="break-all">
+            {%- for state, line in block.get_line_split() -%}
+            {%- if state == Mark.CHANGE_NO -%}
+            {{- line -}}
+            {%- else -%}
+            <strong class="{{ line_box_class(state) }}">{{ line }}</strong>
+            {%- endif -%}
+            {%- endfor -%}
+        </code>
         <div class="absolute {{ line_box_class(block.state) }} inset-y-0 left-0 w-4 text-center">
             {{- line_box_msg(block.state) -}}
         </div>
