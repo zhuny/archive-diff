@@ -1,0 +1,6 @@
+indexes:
+  - kind: WorkResult
+    properties:
+      - name: key
+      - name: created_at
+        direction: desc

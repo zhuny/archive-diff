@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="text-lg font-bold">{{ page.description }}</h2>
+<h4 class="text-xs text-gray-500">{{ page.url }}</h4>
+<div class="mt-4 shadow overflow-x-auto bg-gray-500 rounded-lg p-1">
+    <pre class="text-sm">{{ last_rev.text }}</pre>
+</div>
+
+<h2 class="text-lg font-bold mt-6 mb-2">예전 아카이브 - 비교</h2>
+{% for rev in rev_list %}
+<a class="block bg-gray-500 mb-2 rounded-lg p-2" href="{{ url_for('archive.diff_rev', page_id=page.id, rev1_id=last_rev.id, rev2_id=rev.id) }}">
+    {{ rev.created_at }}
+</a>
+{% endfor %}
+{% endblock %}
