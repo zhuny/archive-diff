@@ -2,17 +2,17 @@
 
 {% macro line_class(state) -%}
     {%- if state == Mark.CHANGE_BEFORE -%}
-        bg-green-300
-    {%- elif state == Mark.CHANGE_AFTER -%}
         bg-red-300
+    {%- elif state == Mark.CHANGE_AFTER -%}
+        bg-green-300
     {%- endif -%}
 {%- endmacro %}
 
 {% macro line_box_class(state) -%}
     {%- if state == Mark.CHANGE_BEFORE -%}
-        bg-green-400
-    {%- elif state == Mark.CHANGE_AFTER -%}
         bg-red-400
+    {%- elif state == Mark.CHANGE_AFTER -%}
+        bg-green-400
     {%- endif -%}
 {%- endmacro %}
 
