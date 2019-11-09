@@ -10,7 +10,7 @@
 <h2 class="text-lg font-bold mt-6 mb-2">예전 아카이브 - 비교</h2>
 {% for rev in rev_list %}
 <a class="block bg-gray-500 mb-2 rounded-lg p-2" href="{{ url_for('archive.diff_rev', page_id=page.id, rev1_id=rev.id, rev2_id=last_rev.id) }}">
-    {{ rev.created_at }}
+    {{ rev.created_at|dtform }}
 </a>
 {% endfor %}
 {% endblock %}
