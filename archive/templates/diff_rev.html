@@ -36,8 +36,8 @@ bg-green-500
 <h2 class="text-lg font-bold">아카이브 비교</h2>
 <div class="mt-4 shadow bg-gray-500 rounded-lg overflow-hidden">
     {% for block in diff_blocks %}
-    <div class="{{ line_class(block.state) }} pl-6 pr-1 relative">
-        <code class="break-all">
+    <div class="{{ line_class(block.state) }} pl-6 pr-1 relative" id="L{{ loop.index }}">
+        <code class="whitespace-pre-wrap">
             {%- for state, line in block.get_line_split() -%}
             {%- if state == Mark.CHANGE_NO -%}
             {{- line -}}
