@@ -12,6 +12,8 @@ class DeltaMark:
 class DeltaInfo:
     def __init__(self, line):
         self.line = line
+        self.left_number = None
+        self.right_number = None
         self.delta_pos = []
 
     @property
@@ -46,18 +48,38 @@ class DeltaInfo:
             yield DeltaMark.CHANGE_NO, self.line[scan:]
 
 
-def calculate_diff(before: str, after: str) -> List[DeltaInfo]:
+def calculate_diff(before: str, after: str, wrap_unchanged=True) -> List[DeltaInfo]:
     before = before.splitlines()
     after = after.splitlines()
 
+    gap = 3  # const
+
     diff = difflib.Differ()
     result = []
+    consequence = gap
+    left_number = right_number = 0
     for row in diff.compare(before, after):
         d = DeltaInfo(row)
+
+        if d.state == DeltaMark.CHANGE_NO:
+            consequence += 1
+        else:
+            consequence = 0
+
         if d.state == DeltaMark.CHANGE_POS:
             if result:
                 result[-1].update_delta(d.body)
         else:
+            if d.state != DeltaMark.CHANGE_BEFORE:
+                d.right_number = right_number
+                right_number += 1
+            if d.state != DeltaMark.CHANGE_AFTER:
+                d.left_number = left_number
+                left_number += 1
+
+            if wrap_unchanged and consequence > gap*2:
+                # remove unchanged line
+                result.pop(-gap)
             result.append(d)
 
     return result

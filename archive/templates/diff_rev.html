@@ -32,10 +32,25 @@ bg-green-500
     {%- endif -%}
 {%- endmacro %}
 
+{% macro line_num_class(state) -%}
+{%- if state == Mark.CHANGE_NO -%}
+bg-gray-400
+{%- elif state == Mark.CHANGE_BEFORE -%}
+bg-red-200
+{%- elif state == Mark.CHANGE_AFTER -%}
+bg-green-200
+{%- endif -%}
+{%- endmacro %}
+
+{% macro line_id(b) -%}
+{%- if b.left_number %}L{{ b.left_number }}{% endif -%}
+{%- if b.right_number %}R{{ b.right_number }}{% endif -%}
+{%- endmacro %}
+
 {% block content %}
 <h2 class="text-xl font-bold">아카이브 비교</h2>
-<a href="{{ url_for('archive.detail', page_id=page.id) }}">
-    <h3 class="text-lg font-bold">{{ page.description }}</h3>
+<a href="{{ url_for('archive.detail', page_id=page.id) }}" class="mt-2 block">
+    <h3 class="text-lg font-bold text-gray-800">{{ page.description }}</h3>
     <h4 class="text-xs text-gray-500">{{ page.url }}</h4>
 </a>
 
@@ -51,8 +66,13 @@ bg-green-500
 </div>
 <div class="mt-4 shadow bg-gray-500 rounded-lg overflow-hidden">
     {% for block in diff_blocks %}
-    <div class="{{ line_class(block.state) }} pl-6 pr-1 relative" id="L{{ loop.index }}">
-        <code class="whitespace-pre-wrap">
+    <div class="{{ line_class(block.state) }} flex" id="{{ line_id(block) }}">
+        <div class="{{ line_box_class(block.state) }} w-4 flex-none text-center">
+            {{- line_box_msg(block.state) -}}
+        </div>
+        <div class="flex-none w-16 text-right px-1 text-gray-700 {{ line_num_class(block.state) }}">{{ block.left_number or "" }}</div>
+        <div class="flex-none w-16 text-right px-1 text-gray-700 {{ line_num_class(block.state) }}">{{ block.right_number or "" }}</div>
+        <code class="whitespace-pre-wrap flex-auto px-1">
             {%- for state, line in block.get_line_split() -%}
             {%- if state == Mark.CHANGE_NO -%}
             {{- line -}}
@@ -61,9 +81,6 @@ bg-green-500
             {%- endif -%}
             {%- endfor -%}
         </code>
-        <div class="absolute {{ line_box_class(block.state) }} inset-y-0 left-0 w-4 text-center">
-            {{- line_box_msg(block.state) -}}
-        </div>
     </div>
     {% endfor %}
 </div>
