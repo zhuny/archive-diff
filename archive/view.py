@@ -31,6 +31,7 @@ def diff_rev(page_id, rev1_id, rev2_id):
 
     return render_template(
         "diff_rev.html",
+        page=PageController.get_by_id(page_id),
         rev1=rev1,
         rev2=rev2,
         diff_blocks=calculate_diff(rev1['text'], rev2['text']),
