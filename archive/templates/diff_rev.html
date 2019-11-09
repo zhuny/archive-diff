@@ -42,6 +42,11 @@ bg-green-200
 {%- endif -%}
 {%- endmacro %}
 
+{% macro line_id(b) -%}
+{%- if b.left_number %}L{{ b.left_number }}{% endif -%}
+{%- if b.right_number %}R{{ b.right_number }}{% endif -%}
+{%- endmacro %}
+
 {% block content %}
 <h2 class="text-xl font-bold">아카이브 비교</h2>
 <a href="{{ url_for('archive.detail', page_id=page.id) }}" class="mt-2 block">
@@ -61,7 +66,7 @@ bg-green-200
 </div>
 <div class="mt-4 shadow bg-gray-500 rounded-lg overflow-hidden">
     {% for block in diff_blocks %}
-    <div class="{{ line_class(block.state) }} flex" id="L{{ block.number }}">
+    <div class="{{ line_class(block.state) }} flex" id="{{ line_id(block) }}">
         <div class="{{ line_box_class(block.state) }} w-4 flex-none text-center">
             {{- line_box_msg(block.state) -}}
         </div>
