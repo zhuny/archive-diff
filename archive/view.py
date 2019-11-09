@@ -14,7 +14,7 @@ def index():
     )
 
 
-@bp.route('/<int:page_id>')
+@bp.route('/<short:page_id>')
 def detail(page_id):
     return render_template(
         "detail.html",
@@ -24,7 +24,7 @@ def detail(page_id):
     )
 
 
-@bp.route('/<int:page_id>/<int:rev1_id>/<int:rev2_id>')
+@bp.route('/<short:page_id>/<short:rev1_id>/<short:rev2_id>')
 def diff_rev(page_id, rev1_id, rev2_id):
     rev1 = PageController.get_rev(rev1_id)
     rev2 = PageController.get_rev(rev2_id)
