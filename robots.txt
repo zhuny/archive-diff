@@ -1,0 +1,7 @@
+User-agent: AhrefsBot
+Disallow: /-q1CaVug5G/
+Disallow: /-q4hHEpDs4/
+Disallow: /-q4IucWXok/
+Disallow: /-q8zi0olAQ/
+Disallow: /-qiQHKn3tC/
+Disallow: /-qplY7DjKo/
