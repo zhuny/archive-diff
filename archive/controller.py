@@ -11,7 +11,8 @@ class PageController:
     def get_list(cls):
         query = current_app.datastore.query(
             namespace="Archive",
-            kind="Work"
+            kind="Work",
+            filters=[('visible', '=', True)]
         )
         result = list(query.fetch())
         result.sort(key=attrgetter("id"))
