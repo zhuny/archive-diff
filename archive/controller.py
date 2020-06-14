@@ -47,7 +47,7 @@ class PageController:
             order=['-created_at'],
             projection=['created_at']
         )
-        result = list(query.fetch())
+        result = list(query.fetch(20))
         if result:
             result.pop(0)  # remove first one if exists
         for row in result:
